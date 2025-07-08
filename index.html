@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lyceum-xs | Personal Portfolio</title>
+  <link rel="icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #6366F1;
+      --bg: #FFFFFF;
+      --text: #1F2937;
+      --bg-dark: #111827;
+      --text-dark: #F3F4F6;
+    }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.4s, color 0.4s;
+    }
+    body.dark {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+    }
+    body.dark .navbar {
+      background: rgba(17, 24, 39, 0.8);
+    }
+    .navbar a {
+      color: inherit;
+      text-decoration: none;
+      margin: 0 0.75rem;
+      font-weight: 500;
+    }
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 1rem;
+      background: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+    }
+    .hero h1 {
+      font-size: 3rem;
+      background: linear-gradient(90deg, #6366F1, #EC4899);
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: slide 8s infinite alternate;
+    }
+    @keyframes slide {
+      0% { transform: translateY(-10px); }
+      100% { transform: translateY(10px); }
+    }
+    .section {
+      padding: 5rem 1rem;
+      max-width: 1024px;
+      margin: auto;
+    }
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 50px;
+      height: 3px;
+      background: var(--primary);
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+    body.dark .card {
+      background: rgba(31, 41, 55, 0.8);
+    }
+    .card:hover {
+      transform: translateY(-8px);
+    }
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 1rem;
+    }
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .skill {
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+    }
+    .contact {
+      text-align: center;
+    }
+    button.theme-toggle {
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
+    .back-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 50%;
+      display: none;
+      cursor: pointer;
+    }
+    body.show-back-top .back-top {
+      display: block;
+    }
+    .btn-primary {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.25s;
+    }
+    .btn-primary:hover {
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo"><a href="#hero">Lyceum-xs</a></div>
+    <div class="nav-links">
+      <a href="#about">关于</a>
+      <a href="#skills">技能</a>
+      <a href="#projects">项目</a>
+      <a href="#contact">联系</a>
+    </div>
+    <button class="theme-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+  </nav>
+
+  <section id="hero" class="hero">
+    <h1>你好，我是 Lyceum-xs</h1>
+    <p>武汉大学软件工程学生 | 学习、开发、分享</p>
+    <a href="#projects" class="btn-primary">查看我的项目</a>
+  </section>
+
+  <section id="about" class="section">
+    <h2 class="section-title">关于我</h2>
+    <p>我热爱编程和探索新技术，专注于 Web 开发与人工智能应用，致力于将创意转化为代码并产生价值。</p>
+  </section>
+
+  <section id="skills" class="section">
+    <h2 class="section-title">技术栈</h2>
+    <div class="skill-list">
+      <span class="skill">Python</span>
+      <span class="skill">FastAPI</span>
+      <span class="skill">JavaScript</span>
+      <span class="skill">Vue.js</span>
+      <span class="skill">C++</span>
+      <span class="skill">Git & GitHub</span>
+      <span class="skill">SQLite</span>
+      <span class="skill">TailwindCSS</span>
+    </div>
+  </section>
+
+  <section id="projects" class="section">
+    <h2 class="section-title">项目</h2>
+    <p>以下项目数据实时从 GitHub API 拉取，展示我的最新公开仓库：</p>
+    <div id="projectsList" class="projects-grid"></div>
+  </section>
+
+  <section id="contact" class="section contact">
+    <h2 class="section-title">联系我</h2>
+    <p>邮箱：<a href="mailto:2024302111357@whu.edu.cn">2024302111357@whu.edu.cn</a></p>
+  </section>
+
+  <footer class="section" style="text-align:center; padding:2rem 1rem;">
+    © <span id="year"></span> Lyceum-xs. Powered by GitHub Pages.
+  </footer>
+
+  <button class="back-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+  <script>
+    // dark mode toggle
+    const toggleBtn = document.querySelector('.theme-toggle');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      const icon = toggleBtn.querySelector('i');
+      icon.classList.toggle('fa-sun');
+      icon.classList.toggle('fa-moon');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+      toggleBtn.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+    }
+    // back-to-top button
+    const backTop = document.querySelector('.back-top');
+    window.addEventListener('scroll', () => {
+      document.body.classList.toggle('show-back-top', window.scrollY > 300);
+    });
+    backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    // dynamic year
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // fetch projects
+    fetch('https://api.github.com/users/Lyceum-xs/repos?sort=updated&per_page=6')
+      .then(r => r.json())
+      .then(data => {
+        const list = document.getElementById('projectsList');
+        data.forEach(repo => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <div class="card-content">
+              <h3>${repo.name}</h3>
+              <p>${repo.description || 'No description'}</p>
+              <a href="${repo.html_url}" target="_blank">查看源码 →</a>
+            </div>`;
+          list.appendChild(card);
+        });
+      })
+      .catch(err => console.error(err));
+  </script>
+</body>
+</html>
