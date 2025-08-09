@@ -164,20 +164,15 @@
       color: var(--primary);
     }
 
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--primary);
-      transition: width 0.3s ease;
+    .nav-links a::after{
+      content:''; position:absolute; bottom:-5px; left:0; right:0; margin:0 auto;
+      width:100%; height:2px; background:linear-gradient(90deg,var(--primary),var(--secondary));
+      transform:scaleX(0); transform-origin:center; transition:transform .25s ease;
     }
 
     .nav-links a:hover::after,
     .nav-links a.active::after {
-      width: 100%;
+      transform:scaleX(1);
     }
 
     .mobile-menu-btn {
@@ -204,6 +199,22 @@
       background: rgba(99, 102, 241, 0.1);
       color: var(--primary);
     }
+
+    /* Capsule theme switch */
+    .theme-switch { padding: 0; border-radius: 999px; }
+    .theme-switch .switch-track{
+      position: relative; width:56px; height:28px; border-radius:999px;
+      background: rgba(99,102,241,.15);
+      display:inline-flex; align-items:center; justify-content:space-between;
+      padding:0 6px; box-shadow: var(--shadow);
+    }
+    body.dark .theme-switch .switch-track{ background: rgba(255,255,255,.12); }
+    .theme-switch .switch-track i{ font-size:12px; opacity:.85; }
+    .theme-switch .switch-thumb{
+      position:absolute; top:3px; left:3px; width:22px; height:22px; border-radius:50%;
+      background:#fff; box-shadow: var(--shadow); transition: transform .25s ease;
+    }
+    body.dark .theme-switch .switch-thumb{ transform: translateX(28px); }
 
     /* Hero Section */
     .hero {
@@ -261,6 +272,16 @@
       animation: fadeInUp 1s ease-out 0.4s both;
     }
 
+    .hero-card{
+      margin:1rem auto 0; display:inline-flex; align-items:center; gap:1rem;
+      padding:.75rem 1rem; border-radius:20px; backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.12);
+    }
+    .hero-avatar{ width:48px; height:48px; border-radius:14px; object-fit:cover; border:2px solid rgba(255,255,255,.5); }
+    .hero-badges{ display:flex; gap:.5rem; flex-wrap:wrap; }
+    .badge{ font-size:.75rem; padding:.25rem .5rem; border-radius:999px; background:rgba(255,255,255,.2); color:#fff; border:1px solid rgba(255,255,255,.35); }
+    .hero-tagline{ color:rgba(255,255,255,.9); font-size:.95rem; margin-top:.25rem; }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -295,7 +316,15 @@
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
       box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+      position:relative;
     }
+
+    /* 主按钮轻光晕 */
+    .btn-primary::after{
+      content:''; position:absolute; inset:-4px; border-radius:999px;
+      box-shadow:0 0 0 0 rgba(99,102,241,.5); opacity:0; transition:all .35s ease;
+    }
+    .btn-primary:hover::after{ box-shadow:0 0 30px 6px rgba(99,102,241,.35); opacity:1; }
 
     .btn-primary:hover {
       transform: translateY(-2px);
@@ -405,12 +434,14 @@
       z-index: -1;
     }
 
-    .about-image img {
-      width: 100%;
-      height: 400px;
-      object-fit: cover;
-      border-radius: 20px;
-      box-shadow: var(--shadow-lg);
+    .about-image img{
+      width:100%; height:400px; object-fit:cover;
+      border-radius:28px; /* 超级圆角，更现代 */
+      box-shadow:var(--shadow-lg);
+      border:4px solid transparent;
+      background:linear-gradient(135deg,var(--primary),var(--secondary)) border-box;
+      -webkit-mask:linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite:xor; mask-composite:exclude;
     }
 
     .about-text {
@@ -513,76 +544,43 @@
     }
 
     /* Timeline */
-    .timeline {
-      margin-top: 3rem;
+    .timeline{ position:relative; margin-top:3rem; }
+    .timeline::before{
+      content:''; position:absolute; left:50%; top:0; bottom:0; width:2px;
+      background:linear-gradient(180deg,var(--primary),var(--secondary));
+      transform:translateX(-50%);
+    }
+    .timeline-item{ position:relative; width:50%; padding:0 2rem; margin:0 0 4rem 0; }
+    .timeline-item:nth-child(odd){ margin-left:0; text-align:right; }
+    .timeline-item:nth-child(even){ margin-left:50%; text-align:left; }
+
+    .timeline-dot{
+      position:absolute; left:calc(50% - 20px); top:0; width:40px; height:40px; border-radius:50%;
+      background:var(--bg); border:4px solid var(--primary);
+      display:flex; align-items:center; justify-content:center; color:var(--primary);
+      box-shadow:var(--shadow); z-index:2;
+    }
+    body.dark .timeline-dot{ background:var(--bg-dark); }
+    .timeline-item:last-child .timeline-dot{
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+      color:#fff; border-color:transparent;
     }
 
-    .timeline-item {
-      display: flex;
-      margin-bottom: 3rem;
-      position: relative;
-    }
+    .timeline-content{ background:var(--bg-secondary); padding:1.5rem; border-radius:15px; box-shadow:var(--shadow); display:inline-block; max-width:520px; }
+    body.dark .timeline-content{ background:var(--bg-dark-secondary); }
+    .timeline-item:nth-child(odd) .timeline-content{ margin-right:3.5rem; }
+    .timeline-item:nth-child(even) .timeline-content{ margin-left:3.5rem; }
 
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: 20px;
-      top: 40px;
-      bottom: -20px;
-      width: 2px;
-      background: var(--primary);
-    }
+    .timeline-date{ color:var(--primary); font-weight:600; font-size:.9rem; }
+    .timeline-title{ font-size:1.2rem; font-weight:600; margin:.5rem 0; }
+    .timeline-description{ color:var(--text-secondary); line-height:1.6; }
+    body.dark .timeline-description{ color:var(--text-dark-secondary); }
 
-    .timeline-item:last-child::before {
-      display: none;
-    }
-
-    .timeline-dot {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 600;
-      flex-shrink: 0;
-      margin-right: 2rem;
-      box-shadow: var(--shadow);
-    }
-
-    .timeline-content {
-      background: var(--bg-secondary);
-      padding: 1.5rem;
-      border-radius: 15px;
-      flex: 1;
-      box-shadow: var(--shadow);
-    }
-
-    body.dark .timeline-content {
-      background: var(--bg-dark-secondary);
-    }
-
-    .timeline-date {
-      color: var(--primary);
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-
-    .timeline-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin: 0.5rem 0;
-    }
-
-    .timeline-description {
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    body.dark .timeline-description {
-      color: var(--text-dark-secondary);
+    @media (max-width:768px){
+      .timeline::before{ left:24px; transform:none; }
+      .timeline-item{ width:100%; margin-left:0; text-align:left; padding-left:3.5rem; }
+      .timeline-dot{ left:4px; }
+      .timeline-item .timeline-content{ margin:0 0 0 2.5rem; display:block; }
     }
 
     /* Projects Section */
@@ -594,28 +592,11 @@
       flex-wrap: wrap;
     }
 
-    .filter-btn {
-      padding: 0.75rem 1.5rem;
-      background: var(--bg-secondary);
-      border: none;
-      border-radius: 25px;
-      color: var(--text);
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    body.dark .filter-btn {
-      background: var(--bg-dark-secondary);
-      color: var(--text-dark);
-    }
-
-    .filter-btn.active,
-    .filter-btn:hover {
-      background: var(--primary);
-      color: white;
-      transform: translateY(-2px);
-    }
+    .filter-btn{ position:relative; padding:.75rem 1.25rem; background:transparent; border:none; border-radius:10px; color:var(--text); font-weight:600; cursor:pointer; transition:color .2s ease; }
+    body.dark .filter-btn{ color:var(--text-dark); }
+    .filter-btn::after{ content:''; position:absolute; left:10%; right:10%; bottom:-6px; height:3px; background:linear-gradient(90deg,var(--primary),var(--secondary)); transform:scaleX(0); transform-origin:center; transition:transform .25s ease; border-radius:2px; }
+    .filter-btn.active, .filter-btn:hover{ color:var(--primary); }
+    .filter-btn.active::after, .filter-btn:hover::after{ transform:scaleX(1); }
 
     .projects-grid {
       display: grid;
@@ -826,39 +807,17 @@
     }
 
     /* Social Links */
-    .social-links {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 2rem;
+    .social-links{ display:flex; justify-content:center; gap:1rem; margin-top:2rem; flex-wrap:wrap; }
+    .social-link{
+      display:inline-flex; align-items:center; gap:.5rem; padding:.6rem 1rem;
+      border-radius:999px; background:var(--bg); border:1px solid var(--border);
+      text-decoration:none; font-weight:500; color:var(--text);
     }
-
-    .social-link {
-      width: 50px;
-      height: 50px;
-      background: var(--bg);
-      border: 2px solid var(--border);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text);
-      text-decoration: none;
-      font-size: 1.2rem;
-      transition: all 0.3s ease;
-    }
-
-    body.dark .social-link {
-      background: var(--bg-dark);
-      border-color: var(--border-dark);
-      color: var(--text-dark);
-    }
-
-    .social-link:hover {
-      background: var(--primary);
-      border-color: var(--primary);
-      color: white;
-      transform: translateY(-3px);
+    body.dark .social-link{ background:var(--bg-dark); border-color:var(--border-dark); color:var(--text-dark); }
+    .social-link i{ font-size:1rem; }
+    .social-link:hover{
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+      color:#fff; border-color:transparent; transform:translateY(-2px);
     }
 
     /* Footer */
@@ -889,34 +848,14 @@
     }
 
     /* Back to Top Button */
-    .back-top {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      border: none;
-      border-radius: 50%;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 1.2rem;
-      box-shadow: var(--shadow-lg);
-      transition: all 0.3s ease;
-      z-index: 1000;
+    .back-top{
+      position:fixed; bottom:20px; right:20px; height:44px; padding:0 14px;
+      background:linear-gradient(135deg,var(--primary),var(--secondary)); color:white;
+      border:none; border-radius:999px; display:none; align-items:center; gap:.5rem;
+      cursor:pointer; font-size:.95rem; box-shadow:var(--shadow-lg); transition:all .3s ease; z-index:1000;
     }
-
-    .back-top:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 25px 35px -5px rgba(99, 102, 241, 0.3);
-    }
-
-    body.show-back-top .back-top {
-      display: flex;
-    }
+    .back-top:hover{ transform:translateY(-3px); box-shadow:0 25px 35px -5px rgba(99,102,241,.3); }
+    body.show-back-top .back-top{ display:inline-flex; }
 
     /* Progress Bar */
     .progress-bar {
@@ -1097,6 +1036,15 @@
     .code-font {
       font-family: 'JetBrains Mono', monospace;
     }
+
+    /* Bottom Navigation */
+    .bottom-nav{ display:none; position:fixed; left:0; right:0; bottom:0; height:60px; background:var(--bg); border-top:1px solid var(--border); z-index:1000; }
+    .bottom-nav a{ flex:1; display:inline-flex; align-items:center; justify-content:center; gap:.35rem; height:100%; color:var(--text); text-decoration:none; font-size:.85rem; }
+    .bottom-nav a i{ font-size:1rem; }
+    .bottom-nav a.active{ color:var(--primary); }
+    body.dark .bottom-nav{ background:var(--bg-dark); border-color:var(--border-dark); }
+    body.dark .bottom-nav a{ color:var(--text-dark); }
+    @media (max-width:768px){ .bottom-nav{ display:flex; } body{ padding-bottom:60px; } }
   </style>
 </head>
 <body>
@@ -1121,8 +1069,12 @@
       <a href="#contact" class="nav-link">联系</a>
     </div>
     <div style="display: flex; align-items: center; gap: 1rem;">
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-        <i class="fas fa-moon"></i>
+      <button class="theme-toggle theme-switch" id="themeToggle" aria-label="Toggle dark mode" aria-pressed="false">
+        <span class="switch-track">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+          <i class="fas fa-sun" aria-hidden="true"></i>
+          <span class="switch-thumb"></span>
+        </span>
       </button>
       <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
         <i class="fas fa-bars"></i>
@@ -1135,6 +1087,18 @@
     <div class="hero-content">
       <h1 data-aos="fade-up">你好，我是 Lyceum-xs</h1>
       <p data-aos="fade-up" data-aos-delay="200">武汉大学软件工程学生 | 全栈开发者 | AI探索者</p>
+      <div class="hero-card" data-aos="fade-up" data-aos-delay="300">
+        <img class="hero-avatar" src="images/WechatIMG3450.jpg" alt="Lyceum-xs 头像"
+             onerror="this.src='https://via.placeholder.com/120/6366F1/FFFFFF?text=Ly'">
+        <div class="hero-card-text">
+          <div class="hero-badges">
+            <span class="badge">软件工程</span>
+            <span class="badge">全栈</span>
+            <span class="badge">AI探索</span>
+          </div>
+          <p class="hero-tagline">把想法变成产品的那个人</p>
+        </div>
+      </div>
       <div class="hero-buttons" data-aos="fade-up" data-aos-delay="400">
         <a href="#projects" class="btn btn-primary">
           <i class="fas fa-code"></i>
@@ -1256,7 +1220,7 @@
 
     <div class="timeline" data-aos="fade-up" data-aos-delay="200">
       <div class="timeline-item">
-        <div class="timeline-dot">1</div>
+        <div class="timeline-dot"><i class="fas fa-code" aria-hidden="true"></i></div>
         <div class="timeline-content">
           <div class="timeline-date">2024年9月</div>
           <h3 class="timeline-title">开始接触 C++</h3>
@@ -1267,7 +1231,7 @@
       </div>
 
       <div class="timeline-item">
-        <div class="timeline-dot">2</div>
+        <div class="timeline-dot"><i class="fas fa-graduation-cap" aria-hidden="true"></i></div>
         <div class="timeline-content">
           <div class="timeline-date">2024年9月</div>
           <h3 class="timeline-title">武汉大学 · 软件工程（入学）</h3>
@@ -1278,7 +1242,7 @@
       </div>
 
       <div class="timeline-item">
-        <div class="timeline-dot">3</div>
+        <div class="timeline-dot"><i class="fab fa-python" aria-hidden="true"></i></div>
         <div class="timeline-content">
           <div class="timeline-date">2024年12月</div>
           <h3 class="timeline-title">开始接触 Python</h3>
@@ -1289,7 +1253,7 @@
       </div>
 
       <div class="timeline-item">
-        <div class="timeline-dot">4</div>
+        <div class="timeline-dot"><i class="fas fa-check" aria-hidden="true"></i></div>
         <div class="timeline-content">
           <div class="timeline-date">2025年6月</div>
           <h3 class="timeline-title">完成第一个完整项目</h3>
@@ -1360,16 +1324,16 @@
 
       <div class="social-links">
         <a href="https://github.com/Lyceum-xs" target="_blank" class="social-link" title="GitHub">
-          <i class="fab fa-github"></i>
+          <i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span>
         </a>
         <a href="mailto:2024302111357@whu.edu.cn" class="social-link" title="Email">
-          <i class="fas fa-envelope"></i>
+          <i class="fas fa-envelope" aria-hidden="true"></i><span>Email</span>
         </a>
         <a href="#" class="social-link" title="LinkedIn">
-          <i class="fab fa-linkedin"></i>
+          <i class="fab fa-linkedin" aria-hidden="true"></i><span>LinkedIn</span>
         </a>
         <a href="#" class="social-link" title="Twitter">
-          <i class="fab fa-twitter"></i>
+          <i class="fab fa-twitter" aria-hidden="true"></i><span>Twitter</span>
         </a>
       </div>
     </div>
@@ -1388,8 +1352,18 @@
 
   <!-- Back to Top Button -->
   <button class="back-top" id="backTop" aria-label="Back to top">
-    <i class="fas fa-arrow-up"></i>
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    <span class="back-top-text">返回顶部</span>
   </button>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav" aria-label="Bottom navigation">
+    <a href="#about"><i class="fas fa-user" aria-hidden="true"></i><span>关于</span></a>
+    <a href="#skills"><i class="fas fa-layer-group" aria-hidden="true"></i><span>技能</span></a>
+    <a href="#experience"><i class="fas fa-timeline" aria-hidden="true"></i><span>经历</span></a>
+    <a href="#projects"><i class="fas fa-code" aria-hidden="true"></i><span>项目</span></a>
+    <a href="#contact"><i class="fas fa-envelope" aria-hidden="true"></i><span>联系</span></a>
+  </nav>
 
   <!-- AOS Animation Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
@@ -1439,7 +1413,7 @@
       navLinks.classList.toggle('active');
       const icon = mobileMenuBtn.querySelector('i');
       icon.classList.toggle('fa-bars');
-      icon.classList.toggle('fa-times');
+      icon.classList.toggle('fa-xmark');
     });
 
     // Close mobile menu when clicking on a link
@@ -1448,7 +1422,7 @@
         navLinks.classList.remove('active');
         const icon = mobileMenuBtn.querySelector('i');
         icon.classList.add('fa-bars');
-        icon.classList.remove('fa-times');
+        icon.classList.remove('fa-xmark');
       });
     });
 
@@ -1471,32 +1445,33 @@
           link.classList.add('active');
         }
       });
+
+      // Sync bottom navigation
+      const bottomNavLinks = document.querySelectorAll('.bottom-nav a');
+      bottomNavLinks.forEach(link => link.classList.remove('active'));
+      bottomNavLinks.forEach(link => {
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
     });
 
     // Dark mode toggle
     const themeToggle = document.getElementById('themeToggle');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
-    // Check for saved theme or default to system preference
-    const currentTheme = localStorage.getItem('theme') || 
-                        (prefersDark.matches ? 'dark' : 'light');
-
+    const currentTheme = localStorage.getItem('theme') || (prefersDark.matches ? 'dark' : 'light');
     if (currentTheme === 'dark') {
       document.body.classList.add('dark');
-      themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+      themeToggle.setAttribute('aria-pressed', 'true');
+    } else {
+      themeToggle.setAttribute('aria-pressed', 'false');
     }
-
     themeToggle.addEventListener('click', () => {
       document.body.classList.toggle('dark');
-      const icon = themeToggle.querySelector('i');
-      
-      if (document.body.classList.contains('dark')) {
-        icon.classList.replace('fa-moon', 'fa-sun');
-        localStorage.setItem('theme', 'dark');
-      } else {
-        icon.classList.replace('fa-sun', 'fa-moon');
-        localStorage.setItem('theme', 'light');
-      }
+      const isDark = document.body.classList.contains('dark');
+      themeToggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
     });
 
     // Back to top button
