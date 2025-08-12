@@ -410,28 +410,20 @@
 
     .about-image {
       position: relative;
+      padding: 4px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 32px;
     }
 
     .about-image::before {
-      content: '';
-      position: absolute;
-      top: -20px;
-      left: -20px;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      border-radius: 20px;
-      z-index: -1;
+      display: none;
     }
 
     .about-image img{
       width:100%; height:400px; object-fit:cover;
-      border-radius:28px; /* 超级圆角，更现代 */
+      border-radius:28px;
       box-shadow:var(--shadow-lg);
-      border:4px solid transparent;
-      background:linear-gradient(135deg,var(--primary),var(--secondary)) border-box;
-      -webkit-mask:linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite:xor; mask-composite:exclude;
+      display: block;
     }
 
     .about-text {
@@ -1104,7 +1096,9 @@
     
     <div class="about-content">
       <div class="about-image" data-aos="fade-right">
-        <img src="images/WechatIMG3450.jpg" alt="Lyceum-xs - 武汉大学软件工程学生" onerror="this.src='https://via.placeholder.com/400x400/6366F1/FFFFFF?text=Lyceum-xs'" />
+        <img src="images/WechatIMG3450.jpg" alt="Lyceum-xs - 武汉大学软件工程学生" 
+             onerror="console.error('图片加载失败:', this.src); this.src='https://via.placeholder.com/400x400/6366F1/FFFFFF?text=Lyceum-xs';" 
+             onload="console.log('图片加载成功:', this.src);" />
       </div>
       <div class="about-text" data-aos="fade-left">
         <p>
